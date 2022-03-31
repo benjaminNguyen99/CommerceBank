@@ -1,0 +1,107 @@
+﻿@model IEnumerable<CommerceBank.Models.Transaction>
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+
+    SortModels sortModel = (SortModels)ViewData["sortModel"];
+}
+
+<link rel="stylesheet" href = "https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+
+<h1>Current Balance - $@UserManager.Users.FirstOrDefault(u => u.Id == @UserManager.GetUserId(User)).TotalBalance </h1>
+
+<p>
+    <a asp-action="Create">Add New Transaction</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th>
+                <i class = "@sortModel.GetColumn("balancetype").SortIcon" arial-hidden = "true"></i> 
+                <a asp-action= "Index" asp-route-sortExpression= "@sortModel.GetColumn("balancetype").SortExpression"> 
+                    @Html.DisplayNameFor(model => model.BalanceType)
+                </a>
+            </th>
+            <th>
+                
+                    @Html.DisplayNameFor(model => model.Amount)
+                
+            </th>
+            <th>
+                <i class ="@sortModel.GetColumn("location").SortIcon" arial-hidden = "true"></i>  
+                <a asp-action= "Index" asp-route-sortExpression= "@sortModel.GetColumn("location").SortExpression"> 
+                    @Html.DisplayNameFor(model => model.Location)
+                </a>
+            </th>
+            <th>
+                
+                    @Html.DisplayNameFor(model => model.Description)
+                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@{float count =0;}
+
+
+@foreach (var item in Model) {
+    @if (item.UserKey == @UserManager.GetUserId(User))
+            {
+                count += 1;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BalanceType)
+                    </td>
+                    @if (item.BalanceType == "Withdraw")
+                    {
+                        <td>
+                            -$@Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                    }
+                    else
+                    {
+                        {
+                        <td>
+                            $@Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                    }
+                    }
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@   
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+            }
+
+
+
+  
+}
+
+    </tbody>
+</table>
