@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using CommerceBank.Models;
 using CommerceBank.Datas;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using CommerceBank.Services;
 
 namespace CommerceBank
 {
@@ -50,6 +52,9 @@ namespace CommerceBank
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TransactionContext>();
+            services.AddScoped<INotification, NotificationRepositories>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<EmailConfirmCode>(Configuration);
             services.AddRazorPages();
         }
 

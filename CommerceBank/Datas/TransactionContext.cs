@@ -16,5 +16,8 @@ namespace CommerceBank.Datas
         }
 
         public virtual DbSet<Transaction> Transac { get; set; }
+
+
+        public virtual DbSet<Notifica> Notification { get; set; }
     }
 }

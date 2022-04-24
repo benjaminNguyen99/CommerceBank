@@ -1,0 +1,195 @@
+﻿@model dynamic
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+
+    SortModels sortModel = (SortModels)ViewData["sortModel"];
+}
+
+<link rel="stylesheet" href = "https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+
+<h1>Alerts </h1>
+
+<p>
+    <a asp-action="Create">Add New Notification</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Type
+                @*@Html.DisplayNameFor(model => model.NotificationType)*@
+            </th>
+            <th>
+                Rule
+                @*@Html.DisplayNameFor(model => model.NotificationRule)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+<tbody>
+
+
+@foreach (Notifica item in Model.notilist) 
+{
+    @if (item.UserKey == @UserManager.GetUserId(User))
+            {
+          
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NotificationType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NotificationRule)
+                    </td>
+                    
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        @*<a asp-action="Details" asp-route-id="@item.UserKey">Details</a>*@
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+}
+
+</tbody>
+</table>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+                @*@Html.DisplayNameFor(model => model.NotificationType)*@
+            </th>
+            <th>
+                Details
+                @*@Html.DisplayNameFor(model => model.NotificationRule)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+
+<tbody>
+@foreach (Notifica x in Model.notilist)
+{
+    @foreach (Transaction item in Model.translist) {
+    @if (item.UserKey == @UserManager.GetUserId(User))
+    {
+        @if (x.NotificationType == "Amount Exceed" && item.Amount >= float.Parse(x.NotificationRule))
+        {
+            <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    @if (item.BalanceType == "Withdraw")
+                    {
+                        <td>
+                            Transaction withdraw $@Html.DisplayFor(modelItem => item.Amount) that exceeds $@Html.DisplayFor(modelItem => x.NotificationRule)
+                        </td>
+                    }
+                    else
+                    {
+                        
+                        <td>
+                            Transaction deposit $@Html.DisplayFor(modelItem => item.Amount) that exceeds $@Html.DisplayFor(modelItem => x.NotificationRule)
+                        </td>
+                    }
+                    
+                    @*
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    
+                    *@
+                    <td>
+                    
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@   
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+        }
+        else if (x.NotificationType == "Location" && x.NotificationRule == item.Location)
+        {
+            <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        Transaction was made in @Html.DisplayFor(modelItem => x.NotificationRule)
+                    </td>
+         
+                    @*
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    
+                    *@
+                    <td>
+                    
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@   
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+        }
+        else if (x.NotificationType == "Category" )
+        {
+            string word1 = x.NotificationRule.ToLower();
+            string word2 = item.Description.ToLower();
+            if (word2.Contains(word1))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        Transaction was made from @Html.DisplayFor(modelItem => x.NotificationRule)
+                    </td>
+         
+                    @*
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    
+                    *@
+                    <td>
+                    
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@   
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        }
+       
+            
+}
+   
+}
+
+           
+}
+</tbody>
+</table>
