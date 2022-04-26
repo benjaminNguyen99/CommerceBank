@@ -31,6 +31,14 @@
                 Rule
                 @*@Html.DisplayNameFor(model => model.NotificationRule)*@
             </th>
+            <th>
+                Past Month Count
+                @*@Html.DisplayNameFor(model => model.NotificationRule)*@
+            </th>
+            <th>
+                Past Year Count
+                @*@Html.DisplayNameFor(model => model.NotificationRule)*@
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -39,16 +47,126 @@
 
 @foreach (Notifica item in Model.notilist) 
 {
-    @if (item.UserKey == @UserManager.GetUserId(User))
+            int countMonth = 0;
+            int countYear = 0;
+            
+            
+            @foreach (Transaction x in Model.translist)
             {
-          
+                var today = DateTime.Now;
+                var month = new DateTime(today.Year, today.Month, 1);
+                var first = month.AddMonths(-1);
+                var last = month.AddDays(-1);
+                var year = DateTime.Now.AddYears(-1);
+                var pastfirst = new DateTime(year.Year, 1, 1);
+                var pastlast = new DateTime(year.Year, 12, 31);
+                float check = 0;
+                if (item.NotificationType == "Category")
+                {
+                    string word1 = item.NotificationRule.ToLower();
+                    string word2 = x.Description.ToLower();
+                    if (x.CreatedDate >= first && x.CreatedDate <= last 
+                    && item.UserKey == @UserManager.GetUserId(User) && word2.Contains(word1))
+                    {
+                        countMonth += 1;
+                    }
+                    if (x.CreatedDate >= pastfirst && x.CreatedDate <= pastlast 
+                    && item.UserKey == @UserManager.GetUserId(User) && word2.Contains(word1))
+                    {
+                    countYear += 1;
+                    }
+                }
+                else if (item.NotificationType == "Amount Exceed" && float.TryParse(item.NotificationRule,out check))
+                {
+                    string word1 = item.NotificationRule.ToLower();
+                    string word2 = x.Description.ToLower();
+                    if (x.CreatedDate >= first && x.CreatedDate <= last 
+                    && item.UserKey == @UserManager.GetUserId(User) && x.Amount >= float.Parse(item.NotificationRule))
+                    {
+                        countMonth += 1;
+                    }
+                    if (x.CreatedDate >= pastfirst && x.CreatedDate <= pastlast 
+                    && item.UserKey == @UserManager.GetUserId(User) && x.Amount >= float.Parse(item.NotificationRule))
+                    {
+                    countYear += 1;
+                    }
+                }
+                else if (item.NotificationType == "Location")
+                {
+                    string word1 = item.NotificationRule.ToLower();
+                    string word2 = x.Description.ToLower();
+                    if (x.CreatedDate >= first && x.CreatedDate <= last 
+                    && item.UserKey == @UserManager.GetUserId(User) && item.NotificationRule == x.Location)
+                    {
+                        countMonth += 1;
+                    }
+                    if (x.CreatedDate >= pastfirst && x.CreatedDate <= pastlast 
+                    && item.UserKey == @UserManager.GetUserId(User) && item.NotificationRule == x.Location)
+                    {
+                    countYear += 1;
+                    }
+                }
+                
+                
+                
+            }
+
+
+            @if (item.UserKey == @UserManager.GetUserId(User))
+            {
+                float check = 0;
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.NotificationType)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NotificationRule)
-                    </td>
+                    @if (item.NotificationType == "Amount Exceed" && float.TryParse(item.NotificationRule,out check))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NotificationRule) 
+                        </td>
+                    }
+                    else if (item.NotificationType == "Category" || item.NotificationType == "Location")
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NotificationRule) 
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Invalid Value. "@Html.DisplayFor(modelItem => item.NotificationRule)"" is not a number. <br>
+                            Please edit or delete it!
+                        </td>
+                    }
+
+                    @if (item.NotificationType == "Amount Exceed" && float.TryParse(item.NotificationRule,out check))
+                    {
+                        <td>
+                            @countMonth
+                        </td>
+                        <td>
+                            @countYear
+                        </td>
+                    }
+                    else if (item.NotificationType == "Category" || item.NotificationType == "Location")
+                    {
+                        <td>
+                            @countMonth
+                        </td>
+                        <td>
+                            @countYear
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            NaN
+                        </td>
+                        <td>
+                            NaN
+                        </td>
+                    }
+                    
                     
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -72,6 +190,10 @@
                 @*@Html.DisplayNameFor(model => model.NotificationType)*@
             </th>
             <th>
+                Transaction ID
+                @*@Html.DisplayNameFor(model => model.NotificationType)*@
+            </th>
+            <th>
                 Details
                 @*@Html.DisplayNameFor(model => model.NotificationRule)*@
             </th>
@@ -87,11 +209,17 @@
     @foreach (Transaction item in Model.translist) {
     @if (item.UserKey == @UserManager.GetUserId(User))
     {
-        @if (x.NotificationType == "Amount Exceed" && item.Amount >= float.Parse(x.NotificationRule))
+        float check = 0;
+        @if (x.NotificationType == "Amount Exceed" && float.TryParse(x.NotificationRule,out check))
         {
-            <tr>
+            if (item.Amount >= float.Parse(x.NotificationRule))
+            {
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        #@Html.DisplayFor(modelItem => item.Id)
                     </td>
                     @if (item.BalanceType == "Withdraw")
                     {
@@ -116,6 +244,7 @@
                         </td>
                     
                     *@
+
                     <td>
                     
                         @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@   
@@ -123,12 +252,16 @@
                         @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                     </td>
                 </tr>
+            }
         }
         else if (x.NotificationType == "Location" && x.NotificationRule == item.Location)
         {
             <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        #@Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
                         Transaction was made in @Html.DisplayFor(modelItem => x.NotificationRule)
@@ -160,6 +293,9 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        #@Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
                         Transaction was made from @Html.DisplayFor(modelItem => x.NotificationRule)

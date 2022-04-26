@@ -81,10 +81,10 @@ namespace CommerceBank.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var userName = Input.UserName; //allow user to log in using either username or email
-                if (userName.IndexOf("@") != -1)
+                if (userName.IndexOf('@') > -1)
                 {
-                    var user = await _userManager.FindByNameAsync(userName);
-                    if (user != null)
+                    var user = await _userManager.FindByEmailAsync(userName);
+                    if (user == null)
                     {
                         ModelState.TryAddModelError("", "Invalid Email");
                         return Page();
@@ -96,7 +96,7 @@ namespace CommerceBank.Areas.Identity.Pages.Account
                 }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, true, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

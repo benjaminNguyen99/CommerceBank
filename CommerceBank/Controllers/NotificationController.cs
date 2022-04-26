@@ -83,10 +83,10 @@ namespace CommerceBank.Controllers
                 
                  //List<Transaction> Transs = _Context.Transac.ToList();
                 //Transs = _Context.Transac.OrderBy(n => n.UserKey).ToList();
-                 noti.UserKey = _userManager.GetUserId(HttpContext.User);
-         
-              //Trans.Balance = Transs.LastOrDefault(d => d.UserKey == userId).Balance - Trans.Amount;
-                
+                noti.UserKey = _userManager.GetUserId(HttpContext.User);
+                noti.CreatedDate = DateTime.Now;
+                //Trans.Balance = Transs.LastOrDefault(d => d.UserKey == userId).Balance - Trans.Amount;
+
 
 
 
