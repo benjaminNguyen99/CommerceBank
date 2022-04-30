@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
+    <!--<header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CommerceBank</a>
@@ -46,6 +46,51 @@
                 </div>
             </div>
         </nav>
+    </header> -->
+    <header class="border-top header text-muted">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container justify-content-start">
+                <!--<a class="navbar-brand" asp-area="" asp-page="/Index"><img src="/images/Inverse Logo.png" style="width:50%"></a>
+                !<div class="myBankNameDiv">
+                    <h3> Commerce Bank </h3>
+                </div> 
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">CommerceBank</a>-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index"><img src="/images/Inverse Logo.png" style="width:65%" /></a> </li>
+
+                        <!--<li><a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">CommerceBank</a></li> -->
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Notification" asp-action="Index">Notifications</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Transaction" asp-action="Index">Transaction</a>
+                            </li>
+                            
+                        }
+                             
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        
+                    </ul>
+
+                    <partial name= "_LoginPartial" />
+
+                </div>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -54,9 +99,35 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <!--<div class="container">
             &copy; 2022 - CommerceBank - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        </div>-->
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="about-us.html">About Us</a> </li>
+                <li><a href="contact.html">Contact</a> </li>
+            </ul>
+        </nav>
+
+        <nav class ="footer-nav-2">
+                <ul>
+                    <li><a href="facebook-placeholder.html"><img src="/images/Facebook.png" 
+                        width="30" height="30" style="margin:0px 5px;" 
+                        class= "img" alt="Facebook" /></a> </li>
+
+                    <li><a href="twitter-placeholder.html"><img src="/images/Twitter.png"
+                        width="30" height="30" style="margin:0px 5px;" 
+                        class= "img" alt="Twitter" /></a> </li>
+
+                    <li><a href="instagram-placeholder.html"><img src="/images/Instagram.png"
+                        width="30" height="30" style="margin:0px 5px;" 
+                        class= "img" alt="Instagram" /></a> </li>
+
+                    <li><a href="linkedin-placeholder.html"><img src="/images/LinkedIn.png"
+                        width="30" height="30" style="margin:0px 5px;" 
+                        class= "img" alt="LinkedIn" /></a> </li>
+                </ul>
+        </nav>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
