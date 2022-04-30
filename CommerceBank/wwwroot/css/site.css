@@ -2,70 +2,140 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
+
+
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #F0EBDF;
 }
+
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #006747;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+    .footer-nav a:hover {
+        color: #adadad;
+    }
+
+
+.footer-nav-2 ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-nav-2 a {
+    color: inherit;
+    text-decoration: none;
+    padding: 1rem;
+    list-style: none;
+}
+
+    .footer-nav-2 a:hover {
+        color: #adadad;
+    }
+
+.border-top footer text-muted {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Header testing here */
+.border-top header text-muted {
+    background-color: #006747;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #006747;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.navbar-nav ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    justify-content: left;
+    color: white;
+}
+
+
+.nav-link ul {
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+.navbar-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+    .navbar-nav a:hover {
+        color: #adadad;
+    }
+
+.navbar {
+    background-color: #006747 !important;
 }

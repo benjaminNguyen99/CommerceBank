@@ -31,17 +31,17 @@ namespace CommerceBank
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication()
-                .AddFacebook(options =>
-                {
-                    options.ClientId = Configuration["App:FacebookClientId"];
-                    options.ClientSecret = Configuration["App:FacebookClientSecret"];
-                })
-                .AddGoogle(options =>
-                {
-                    options.ClientId = Configuration["App:GoogleClientId"];
-                    options.ClientSecret = Configuration["App:GoogleClientSecret"];
-                });
+            //services.AddAuthentication()
+            //    .AddFacebook(options =>
+            //    {
+            //        options.ClientId = Configuration["App:FacebookClientId"];
+            //        options.ClientSecret = Configuration["App:FacebookClientSecret"];
+            //    })
+            //    .AddGoogle(options =>
+            //    {
+            //        options.ClientId = Configuration["App:GoogleClientId"];
+            //        options.ClientSecret = Configuration["App:GoogleClientSecret"];
+            //    });
                
             services.AddControllersWithViews();
             services.AddScoped<ITransaction, TransactionRepositories>(); /*In case if wish to provide a new implementation to the unit interface
@@ -53,8 +53,8 @@ namespace CommerceBank
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<TransactionContext>();
             services.AddScoped<INotification, NotificationRepositories>();
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<EmailConfirmCode>(Configuration);
+            //services.AddTransient<IEmailSender, EmailSender>();
+            //services.Configure<EmailConfirmCode>(Configuration);
             services.AddRazorPages();
         }
 
