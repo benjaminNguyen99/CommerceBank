@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CommerceBank",
+    "\\CommerceBank\\Areas",
+    "\\CommerceBank\\Areas\\Identity",
+    "\\CommerceBank\\Areas\\Identity\\Pages",
+    "\\CommerceBank\\Areas\\Identity\\Pages\\Account",
+    "\\CommerceBank\\Areas\\Identity\\Pages\\Account\\Manage"
+  ],
+  "SelectedNode": "\\CommerceBank\\Areas\\Identity\\Pages\\Account\\Manage\\Index.cshtml",
+  "PreviewInSolutionExplorer": false
+}

@@ -7680,19 +7680,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jcjoh\\.nuget\\packages\\": {}
+    "C:\\Users\\Tri\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jcjoh\\OneDrive\\Documents\\GitHub\\FINAL 451 Repo\\CommerceBank\\CommerceBank\\CommerceBank.csproj",
+      "projectUniqueName": "C:\\Users\\Tri\\Desktop\\CS451\\CommerceBank\\VinceNguyen000\\CommerceBank\\CommerceBank\\CommerceBank.csproj",
       "projectName": "CommerceBank",
-      "projectPath": "C:\\Users\\jcjoh\\OneDrive\\Documents\\GitHub\\FINAL 451 Repo\\CommerceBank\\CommerceBank\\CommerceBank.csproj",
-      "packagesPath": "C:\\Users\\jcjoh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jcjoh\\OneDrive\\Documents\\GitHub\\FINAL 451 Repo\\CommerceBank\\CommerceBank\\obj\\",
+      "projectPath": "C:\\Users\\Tri\\Desktop\\CS451\\CommerceBank\\VinceNguyen000\\CommerceBank\\CommerceBank\\CommerceBank.csproj",
+      "packagesPath": "C:\\Users\\Tri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Tri\\Desktop\\CS451\\CommerceBank\\VinceNguyen000\\CommerceBank\\CommerceBank\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\jcjoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Tri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
